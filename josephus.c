@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define DELAY 150000
+#define DELAY 130000
 
 #define MAX 32
 
@@ -37,7 +37,7 @@ int main(int argc, char** argv){
     int left_alive;
     int number_of_dudes; 
     if (argc > 1){
-        number_of_dudes = left_alive = atoi(argv[1] > MAX) ? MAX : atoi(argv[1]);
+        number_of_dudes = left_alive = atoi(argv[1]) > MAX ? MAX : atoi(argv[1]);
     } else {
         number_of_dudes = left_alive = MAX;
     }
@@ -82,7 +82,7 @@ int main(int argc, char** argv){
             }
             else{
                 unhighlight_guy(i);
-                usleep(DELAY / 2);
+                usleep(DELAY);
             }
         }
     }
