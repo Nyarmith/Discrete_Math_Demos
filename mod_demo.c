@@ -2,7 +2,7 @@
 #include <math.h>
 #include <unistd.h>
 #include <stdlib.h>
-#define DELAY 130000
+#define DELAY 180000
 #define PAUSE
 
 //just the mods for n^p, for each power of n and p
@@ -19,7 +19,7 @@ void print_mod_trees();
 //gcd algorithm
 void print_euclid_algorithm();
 
-#define NUMFUNC 6
+#define NUMFUNC 5
 
 //try pointer array for fun here
 void (*demo_ptr_array[ NUMFUNC ])() = {print_fermat_last_theorem, print_mod_congruence, print_mod_residues, print_mod_trees, print_euclid_algorithm};
@@ -47,6 +47,7 @@ int main(int argc, char** argv){
     mvprintw( LINES - 2 , 2, "hit any key to exit" );
     getch();
     endwin();
+    return 0;
 }
 
 
@@ -56,7 +57,7 @@ void print_fermat_last_theorem(){
     int a = 4;
     int cur_a=4;
     for (int i=1; i<= 11; i++){
-        mvprintw(i,3,"%d^%d mod %d =%d mod %d = %d", a, i, prime, cur_a, prime, cur_a % m);
+        mvprintw(i,3,"%d^%d mod %d =%d mod %d = %d", a, i, prime, cur_a, prime, cur_a % prime);
         cur_a *= 4;
         refresh();
         usleep(DELAY);
@@ -71,7 +72,7 @@ void print_mod_congruence(){
 
     if (mod <= 1){ mod = 2; }
 
-    mvprintw("%d mod %d = %d", a, mod, a % mod);
+    mvprintw(2,2,"%d mod %d = %d", a, mod, a % mod);
     for (int i=0; i< 8; i++){
         printw(" = %d mod %d", a + (rand()%37)*mod, mod);
         refresh();
@@ -104,7 +105,7 @@ void print_mod_residues(){
 void print_tree(int left, int right, int ml, int nl, int mr, int nr, int depth){
 
     if (depth >= 5) //our base case or whatever
-        return ();
+        return ;
 
     int m = ml + mr;
     int n = nl + nr;
@@ -125,13 +126,19 @@ void print_mod_trees(){
     int m_ = 1;
     int n_ = 0;
     mvprintw(  1, 1, "0/1");
+    refresh();
+    usleep( DELAY / 2 );
     mvprintw(  1, COLS - 4 , "1/0" );
+    refresh();
+    usleep( DELAY / 2 );
     print_tree(1, COLS-1, m, n, m_, n_, 0);
 }
 
 void print_gcd(int n, int m){
 
     printw( "gcd( %d , %d ) = \n", n, m);
+    refresh();
+    usleep( DELAY / 2 );
 
     if (n <= 0){
         return 0;
