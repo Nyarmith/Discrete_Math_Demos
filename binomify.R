@@ -44,7 +44,7 @@ binomify <- function(n){
   
   #solve for c
   answers <- polyroot(c(-6*n, 2, -3, 1))
-  c <- floor(max(Re(answers)))   #get last element of that list(and also turn it into a real number)
+  c <- floor(max(Re(answers)))
   #remove that chunk from n
   n <- n - choose(c,3)
   
