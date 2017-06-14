@@ -60,3 +60,4 @@ binomify <- function(n){
 }
 
 c <- binomify(24)
+c
