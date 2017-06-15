@@ -59,5 +59,10 @@ binomify <- function(n){
   return ( binomial_number(a=a,b=b,c=c) )
 }
 
+#Let's also convert to a normal number from a,b,c
+toNum <- function(object){
+  return (choose(object@a,1)+choose(object@b,2)+choose(object@c,3))
+}
+
 c <- binomify(24)
 c
