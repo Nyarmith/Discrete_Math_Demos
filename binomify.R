@@ -30,9 +30,9 @@ binomial_number <- setClass(
 
 #we now have a default way to create numbers in binomial representation
 a <- binomial_number()
-a
+print(a)
 b <- binomial_number(a=1,b=2,c=3)
-b
+print(b)
 #if we try to run something like b <- binomial_number(a=1,b=3,c=2), our validity function will complain
 
 #now let's create a function called "binomify" to convert real numbers to this special binomial representation
@@ -65,4 +65,4 @@ toNum <- function(object){
 }
 
 c <- binomify(24)
-c
+print(c)
