@@ -1,4 +1,4 @@
-#defining our own binomial_number_system class, as per problem 38 of Concrete Mathematics Chapter 5
+#defining our own binomial number system class, as per problem 38 of Concrete Mathematics Chapter 5
 # i.e. any number can be uniquely written as some
 # c choose 3 + b choose 2 + a choose 1 where c > b > a
 
@@ -44,7 +44,7 @@ binomify <- function(n){
   
   #solve for c
   answers <- polyroot(c(-6*n, 2, -3, 1))
-  c <- floor(max(Re(answers)))
+  c <- floor(max(Re(answers)))   #get max element of that list(and also turn it into a real number)
   #remove that chunk from n
   n <- n - choose(c,3)
   
