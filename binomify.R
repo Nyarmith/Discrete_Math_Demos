@@ -30,9 +30,9 @@ binomial_number <- setClass(
 
 #we now have a default way to create numbers in binomial representation
 a <- binomial_number()
-a
+print(a)
 b <- binomial_number(a=1,b=2,c=3)
-b
+print(b)
 #if we try to run something like b <- binomial_number(a=1,b=3,c=2), our validity function will complain
 
 #now let's create a function called "binomify" to convert real numbers to this special binomial representation
@@ -44,7 +44,7 @@ binomify <- function(n){
   
   #solve for c
   answers <- polyroot(c(-6*n, 2, -3, 1))
-  c <- floor(max(Re(answers)))   #get last element of that list(and also turn it into a real number)
+  c <- floor(max(Re(answers)))
   #remove that chunk from n
   n <- n - choose(c,3)
   
@@ -59,4 +59,10 @@ binomify <- function(n){
   return ( binomial_number(a=a,b=b,c=c) )
 }
 
+#Let's also convert to a normal number from a,b,c
+toNum <- function(object){
+  return (choose(object@a,1)+choose(object@b,2)+choose(object@c,3))
+}
+
 c <- binomify(24)
+print(c)
