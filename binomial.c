@@ -2,7 +2,7 @@
 #include <math.h>
 #include <unistd.h>
 #include <stdlib.h>
-#define DELAY 90000
+#define DELAY 120000
 #define PAUSE
 
 //print pascal's triangle (do symmetric portions simultaneously!)
@@ -48,7 +48,7 @@ int main(int argc, char** argv){
     noecho();
     start_color();
     init_pair(NORM, COLOR_WHITE,   COLOR_BLACK);
-    init_pair(HL,   COLOR_YELLOW,  COLOR_CYAN);
+    init_pair(HL,   COLOR_BLACK,  COLOR_CYAN);
 
     for (int i = 0; i < NUMFUNC; i++){
         clear();
@@ -76,6 +76,11 @@ int choose(int n, int k){
     return (n*choose(n-1,k-1))/k;
 }
 
+
+void half_pause(){
+    usleep( DELAY / 2 );
+}
+
 void pause(){
     usleep( DELAY );
 }
@@ -85,7 +90,7 @@ void print_num(int y, int x, int num){
     mvprintw(y,x,"%3d",num);
 }
 
-void print_highlight_num(int x, int y, int num){
+void print_highlight_num(int y, int x, int num){
     attron(COLOR_PAIR(HL));
     mvprintw(y,x,"%3d",num);
 }
@@ -94,13 +99,48 @@ void print_pascal_triangle(){
     int depth = 12;
     int mid = COLS / 2;
     print_num(1,mid, 1);
+
     for (int i=1; i<depth; i++){
         int start = mid - 6*i/2; //
+        int last_start = mid - 6*(i-1)/2; //
         for (int j=0; j<=i; j++){
+            //highlight contributors
+            int temp = last_start;
+            if ((j-1 >= 0)){
+                print_highlight_num(i, last_start, choose(i-1,j-1));
+                last_start += 6;
+            }
+
+            if ((i-1) >= (j)){
+                print_highlight_num(i, last_start, choose(i-1,j));
+                last_start += 6;
+            }
+            refresh();
+            pause();
+            print_highlight_num(i+1, start, choose(i,j));
+
+            refresh();
+            pause();
+            last_start = temp;
+
             print_num(i+1, start, choose(i,j));
             start += 6;
             refresh();
             pause();
+            
+
+            //unlighlight contributors
+            //
+            if ((j-1 >= 0)){
+                print_num(i, last_start, choose(i-1,j-1));
+                last_start += 6;
+            }
+
+            if ((i-1) >= (j)){
+                print_num(i, last_start, choose(i-1,j));
+                last_start += 6;
+            }
+            last_start -= 6;
         }
     }
 }
